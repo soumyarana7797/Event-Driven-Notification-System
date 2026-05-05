@@ -7,11 +7,13 @@ from sqlalchemy.ext.asyncio import async_engine_from_config
 
 from alembic import context
 
-# Import Base so Alembic can detect all models via metadata.
-# As you add ORM models, import them here (or import their module) so
-# their tables are registered on Base.metadata before autogenerate runs.
-from app.infrastructure.database.base import Base  # noqa: F401
 from app.core.config import settings
+from app.infrastructure.database.base import Base  # noqa: F401
+
+# Importing the models package registers all ORM classes on Base.metadata
+# so Alembic autogenerate can detect them. Add new model modules to
+# app/infrastructure/database/models/__init__.py as the project grows.
+import app.infrastructure.database.models  # noqa: F401
 
 # ── Alembic config ────────────────────────────────────────────────────────────
 
